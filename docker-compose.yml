@@ -1,0 +1,129 @@
+version: "3.0"
+
+services:
+  # arrow:
+  #   build:
+  #     context: ./services/arrow-wildcard/
+  #   image: arrow-wildcard
+  #   env_file: docker-compose.env
+  #   links:
+  #     - nats
+  #     - postgres
+  #   depends_on:
+  #     - nats
+  #     - tenant
+  #     - iam
+  #     - configuration
+  #     - postgres
+
+  double-star:
+    build:
+      context: ./services/double-star/
+    image: double-star-wildcard
+    env_file: docker-compose.env
+    links:
+      - nats
+    depends_on:
+      - nats
+
+  # external-testing-service:
+  #   build:
+  #     context: ./services/external/
+  #   image: external-testing-service
+  #   env_file: docker-compose.env
+  #   links:
+  #     - nats
+  #     - postgres
+  #   depends_on:
+  #     - nats
+  #     - tenant
+  #     - iam
+  #     - configuration
+  #     - postgres
+
+  stars:
+    build:
+      context: ./services/stars/
+    image: stars-wildcard
+    env_file: docker-compose.env
+    links:
+      - nats
+    depends_on:
+      - nats
+
+  # configuration:
+  #   image: nelnet-docker.jfrog.io/nni-amplifi-svc-configuration:develop
+  #   env_file: docker-compose.env
+  #   environment:
+  #     CLIENT_ID: configuration
+  #     TRANSPORTER: nats://nats:4222
+  #     REDIS_URL: redis://redis:6379/1
+  #   links:
+  #     - redis
+  #     - nats
+  #   depends_on:
+  #     - redis
+  #     - nats
+  #     - iam
+  #   ports:
+  #     - 81:81
+  #   labels:
+  #     amplifi.compose.service.name: configuration
+
+  # iam:
+  #   image: nelnet-docker.jfrog.io/nni-amplifi-svc-iam:develop
+  #   env_file: docker-compose.env
+  #   environment:
+  #     CLIENT_ID: iam
+  #     TRANSPORTER: nats://nats:4222
+  #   links:
+  #     - nats
+  #   depends_on:
+  #     - nats
+  #     - tenant
+  #   ports:
+  #     - 82:82
+  #   labels:
+  #     amplifi.compose.service.name: iam
+
+  # tenant:
+  #   image: nelnet-docker.jfrog.io/nni-amplifi-svc-tenant:latest
+  #   env_file: docker-compose.env
+  #   environment:
+  #     CLIENT_ID: tenant
+  #     TRANSPORTER: nats://nats:4222
+  #     TYPEORM_MIGRATIONS: dist/migration/**/*.js
+  #     TYPEORM_URL: postgres://amplifi:amplifi@postgres:5432/tenant
+  #   links:
+  #     - nats
+  #     - postgres
+  #   depends_on:
+  #     - nats
+  #     - postgres
+  #   ports:
+  #     - 83:83
+  #   labels:
+  #     amplifi.compose.service.name: tenant
+
+  nats:
+    image: nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    labels:
+      amplifi.compose.service.type: LoadBalancer
+  # postgres:
+  #   image: nelnet-docker.jfrog.io/nni-amplifi-lib-docker-postgres:0.0.1-develop-8
+  #   restart: always
+  #   environment:
+  #     POSTGRES_PASSWORD: amplifi
+  #     POSTGRES_USER: amplifi
+  #     POSTGRES_MULTIPLE_DATABASES: eventLogger,tenant
+  #   labels:
+  #     amplifi.compose.service.type: LoadBalancer
+  #   ports:
+  #     - "5432:5432"
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
