@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="3" time="2.45">
-  <testsuite name="EventLoggerService.integration.js" errors="0" failures="3" skipped="0" timestamp="2019-04-05T15:54:17" time="2.365" tests="4">
-    <testcase classname="EventLogger Double star wildcard" name="should dispatch events" time="0.022">
+<testsuites name="jest tests" tests="5" failures="4" time="2.449">
+  <testsuite name="EventLoggerService.integration.js" errors="0" failures="4" skipped="0" timestamp="2019-04-09T14:28:02" time="2.366" tests="5">
+    <testcase classname="EventLogger Double star wildcard" name="should dispatch events" time="0.02">
     </testcase>
-    <testcase classname="EventLogger Double star wildcard" name="should react to events from external source" time="0.02">
+    <testcase classname="EventLogger Double star wildcard" name="should react to events from external source" time="0.018">
       <failure>Error: expect(received).toContain(expected) // indexOf
 
 Expected value: &quot;some.other.event&quot;
 Received array: [&quot;sanity.check.event&quot;, &quot;sanity.check.event&quot;]
     at Object.toContain (C:\Amplify\moleculer-wildcard\test\integration\EventLoggerService.integration.js:62:24)</failure>
     </testcase>
-    <testcase classname="EventLogger Double star wildcard" name="exploration of multiple wildcards" time="0.011">
+    <testcase classname="EventLogger Double star wildcard" name="exploration of multiple wildcards" time="0.02">
       <failure>Error: expect(received).toContain(expected) // indexOf
 
 Expected value: &quot;sanity.check.event&quot;
 Received array: []
     at Object.toContain (C:\Amplify\moleculer-wildcard\test\integration\EventLoggerService.integration.js:87:24)</failure>
     </testcase>
-    <testcase classname="EventLogger Double star wildcard" name="exploration of multiple wildcards part two" time="0.028">
+    <testcase classname="EventLogger Double star wildcard" name="exploration of multiple wildcards part two" time="0.015">
       <failure>Error: expect(received).toContain(expected) // indexOf
 
 Expected value: &quot;sanity.check.event&quot;
 Received array: [&quot;this.is.a.long.event.name&quot;, &quot;this.is.a.long.event.name&quot;]
     at Object.toContain (C:\Amplify\moleculer-wildcard\test\integration\EventLoggerService.integration.js:117:24)</failure>
+    </testcase>
+    <testcase classname="EventLogger Double star wildcard" name="other wildcard tests eg. domain.* " time="0.012">
+      <failure>Error: expect(received).toContain(expected) // indexOf
+
+Expected value: &quot;sanity.check.event&quot;
+Received array: [&quot;domain.event&quot;, &quot;domain.event&quot;, &quot;domain.event&quot;, &quot;domain.event&quot;]
+    at Object.toContain (C:\Amplify\moleculer-wildcard\test\integration\EventLoggerService.integration.js:148:24)</failure>
     </testcase>
   </testsuite>
 </testsuites>

@@ -121,5 +121,36 @@ describe('EventLogger', () => {
       expect(captured).toHaveLength(3);
       // in the end we have  ["this.is.a.long.event.name", "this.is.a.long.event.name"]
     });
+
+    it('other wildcard tests eg. domain.* ', async () => {
+      // subscribed to ** and *.*.*.*.*.*
+      await broker.call('double-star-wildcard.emitEvent', {
+        event: 'sanity.check.event'
+      });
+
+      await broker.call('double-star-wildcard.broadcastEvent', {
+        event: 'domain.event'
+      });
+
+      await broker.call('double-star-wildcard.broadcastEvent', {
+        event: 'domain.this.is.a.long.event.name'
+      });
+
+      const dispatched = await broker.call('double-star-wildcard.getDispatchedEvents');
+      expect(dispatched).toContain('sanity.check.event');
+      expect(dispatched).toContain('domain.event');
+      expect(dispatched).toContain('domain.this.is.a.long.event.name');
+      expect(dispatched).toHaveLength(3);
+
+      const captured = await broker.call('star-wildcards.getCapturedEvents');
+
+      // we expect to see these three events
+      expect(captured).toContain('sanity.check.event');
+      expect(captured).toContain('domain.event');
+      expect(captured).toContain('domain.this.is.a.long.event.name');
+
+      expect(captured).toHaveLength(3);
+      // in the end we have  ["this.is.a.long.event.name", "this.is.a.long.event.name"]
+    });
   });
 });

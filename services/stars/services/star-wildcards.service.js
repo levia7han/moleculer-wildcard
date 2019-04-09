@@ -62,6 +62,18 @@ module.exports = function () {
 					capturedEvents.push(eventName);
 					this.logger.info(`event triggered:`, data, sender, eventName);
 				}
+			},
+			'domain.*'(data, sender, eventName) {
+				if (eventName.indexOf('$') == -1) {
+					capturedEvents.push(eventName);
+					this.logger.info(`event triggered:`, data, sender, eventName);
+				}
+			},
+			'domain.*.*'(data, sender, eventName) {
+				if (eventName.indexOf('$') == -1) {
+					capturedEvents.push(eventName);
+					this.logger.info(`event triggered:`, data, sender, eventName);
+				}
 			}
 
 		},
