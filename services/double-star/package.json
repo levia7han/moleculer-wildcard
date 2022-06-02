@@ -25,7 +25,7 @@
   "dependencies": {
     "moleculer": "0.13.7",
     "nats": "1.2.2",
-    "protobufjs": "^6.8.8",
+    "protobufjs": "^6.11.3",
     "dotenv": "^6.2.0"
   },
   "engines": {
